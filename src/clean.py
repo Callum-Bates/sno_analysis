@@ -54,25 +54,3 @@ def resolve_label_conflicts(df, group_cols, label_col, keep_value=1):
     result = merged[no_conflict | resolved_conflict].drop(columns=["_merge", "n_unique_labels"])
     return result.reset_index(drop=True)
 
-
-def get_pos_and_neg_sites(df, label_col):
-    
-    positive_condition = df[label_col] == 1
-    negative_condition = df[label_col] == 0 
-
-    positive_sites = df[positive_condition]
-    negative_sites = df[negative_condition]
-
-    both = df.shape[0]
-    print(f"no. sites in original dataframe: {both}")
-
-    positive = positive_sites.shape[0]
-    negative = negative_sites.shape[0]
-    
-    print(f"no. positive sites: {positive}\nno. negative sites: {negative}")
-    
-    return positive_sites, negative_sites
-
-
-
-
