@@ -32,6 +32,8 @@ def get_highly_modified_proteins(df, id_col_name, threshold_number):
     # apply the mask
     series_filtered = series[mask]
     series_filtered = series_filtered.reset_index()
+    
+    series_filtered = series_filtered.rename(columns={0: "occurrences"})
 
     excluded = series[excluded_mask]
     excluded = excluded.reset_index()
@@ -43,6 +45,8 @@ def get_highly_modified_proteins(df, id_col_name, threshold_number):
     # merge using array of protein ids 
 
     df_merged = pd.merge(df, series_filtered, on = "id", how = "inner", indicator = False)
+    
+    
 
     excluded_rows = pd.merge(df, excluded, on="id", how="inner")
 
@@ -50,7 +54,7 @@ def get_highly_modified_proteins(df, id_col_name, threshold_number):
     print(f"proteins > {threshold_number}:{series_filtered.shape}")
     print(f"original df:{df.shape}")
     print(f"new dataframe: {df_merged.shape}")
-    print(f"ecluded: {excluded.shape}")
+    print(f"excluded: {excluded.shape}")
     print("================##===============")
 
     # sanity check

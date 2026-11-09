@@ -31,12 +31,15 @@ df_no_nas = remove_nas(df, "position")
 df_no_duplicates = remove_duplicates(df_no_nas)
 
 df_clean = resolve_label_conflicts(df_no_duplicates, group_cols=["id", "position"], label_col="modified", keep_value=1)
+df_to_csv(df_clean, f"{PROCESSED_DIR}/df_clean.csv", False)
+
 
 
 # creating summary tables / new data
 positive_sites, negative_sites = get_pos_and_neg_sites(df_clean, "modified")
 
-highly_mod_protein_df = get_highly_modified_proteins(df_clean, "id", 5)
+highly_mod_protein_df = get_highly_modified_proteins(df_clean, "id", 40)
+df_to_csv(highly_mod_protein_df, f"{PROCESSED_DIR}/highly_modified.csv", False)
 
 top_20 = get_top_n_proteins(df_clean, 20, "id")
 
